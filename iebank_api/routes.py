@@ -7,6 +7,11 @@ from iebank_api.models import Account
 def hello_world():
     return 'Hello, World!'
 
+@app.route('/skull', methods=['GET'])
+def skull():
+    return 'Hi! This is the BACKEND SKULL! 💀'
+
+
 @app.route('/accounts', methods=['POST'])
 def create_account():
     name = request.json['name']
