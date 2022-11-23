@@ -64,13 +64,16 @@ jobs:
       with:
         name: python-app
         path: .
-        
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       id: deploy-to-webapp
       with:
         app-name: 'jseijas-iebank-backend'
         slot-name: 'Production'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2C30AEF34D9740FD8BC5D073A8B0CDB0 }}
 
     
