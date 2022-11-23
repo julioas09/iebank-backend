@@ -8,12 +8,15 @@ on:
     branches: [ "main", "dev" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   build:
+    env:
+      ENV: ghci
 
     runs-on: ubuntu-latest
 
@@ -36,4 +39,5 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        python -m pytest
+        python -m pytest --cov=iebank_api -v
+
