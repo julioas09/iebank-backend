@@ -21,3 +21,6 @@ class DevelopmentConfig(Config):
     dbhost=os.getenv('DBHOST'),
     dbname=os.getenv('DBNAME')
     )
+class GithubCIConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///sqlitefile.db'
+    DEBUG = True
