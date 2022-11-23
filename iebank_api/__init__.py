@@ -9,7 +9,7 @@ app = Flask(__name__)
 load_dotenv()
 # Select environment based on the ENV environment variable
 if os.getenv('ENV') == 'dev':
-    print("Running in local development mode")
+    print("Running in development mode")
     app.config.from_object('config.DevelopmentConfig')
 elif os.getenv('ENV') == 'ghci':
     print("Running in github mode")
