@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   build:
@@ -18,6 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENV: ghci
+      DBHOST: bla
+      DBUSER: bla
+      DBPASS: bla
+      DBNAME: bla
 
     steps:
     - uses: actions/checkout@v3
@@ -39,34 +44,4 @@ jobs:
     - name: Test with pytest
       run: |
         python -m pytest --cov=iebank_api -v
-    
-    - name: Upload artifact for deployment jobs
-      uses: actions/upload-artifact@v2
-      with:
-        name: python-app
-        path: |
-            . 
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v2
-      with:
-        name: python-app
-        path: .
-        
-    - name: 'Deploy to Azure Web App'
-      uses: azure/webapps-deploy@v2
-      id: deploy-to-webapp
-      with:
-        app-name: 'jseijas-iebank-backend'
-        slot-name: 'Production'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2C30AEF34D9740FD8BC5D073A8B0CDB0 }}
-
     
